@@ -13,6 +13,7 @@ void setup() {
   newTree();
 }
 
+
 //treeの生成
 void newTree() {
   _trunk = new Branch(1, 0, width/2, 50);
