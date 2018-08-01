@@ -1,4 +1,4 @@
-int num = 1000;
+int num = 500;
 float[] lineStarX1 = new float[num];
 float[] lineStartY1 = new float[num];
 float[] lineEndX1 = new float[num];
