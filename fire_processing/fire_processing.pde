@@ -34,6 +34,7 @@ void draw(){
   if(trigger==true){
     fire();
   } 
+  
 }
 
 void fire(){
