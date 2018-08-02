@@ -2,7 +2,7 @@ PImage Penguin;
 PImage tako;
 PImage hitodeRight;
 PImage hitodeLeft;
-PImage aseRight;
+//PImage aseRight;
 PImage aseLeft;
 
 
@@ -10,7 +10,7 @@ boolean peng=false;
 boolean takoBool=false;
 boolean hitodeR=false;
 boolean hitodeL=false;
-boolean aseR=false;
+//boolean aseR=false;
 boolean aseL=false;
 
 float pengLength=500;
@@ -25,7 +25,7 @@ void setup(){
   tako=loadImage("tako.jpg");
   hitodeRight=loadImage("hitode-Light.jpg");
   hitodeLeft=loadImage("hitodeLeft.jpg");
-  aseRight=loadImage("aseRight.jpg");
+  //aseRight=loadImage("aseRight.jpg");
   aseLeft=loadImage("aseLeft.jpg");
   fullScreen();
   imageMode(CENTER);
@@ -68,14 +68,14 @@ void draw(){
     tint(255,50);
     image(hitodeLeft,width/8,height*5/6,hitodeLLength,hitodeLLength);
   }
-  //汗の右のやつ----------------------
-  if(aseR==true){
-    tint(255,255);
-    image(aseRight,width*7/8,height*5/6,aseRLength,aseRLength);
-  }else{
-    tint(255,50);
-    image(aseRight,width*7/8,height*5/6,aseRLength,aseRLength);
-  }
+  ////汗の右のやつ----------------------
+  //if(aseR==true){
+  //  tint(255,255);
+  //  image(aseRight,width*7/8,height*5/6,aseRLength,aseRLength);
+  //}else{
+  //  tint(255,50);
+  //  image(aseRight,width*7/8,height*5/6,aseRLength,aseRLength);
+  //}
   //汗の左のやつ----------------------
   if(aseL==true){
     tint(255,255);
@@ -113,12 +113,12 @@ void mouseReleased(){
         hitodeL=true; 
      }
   }
-  //汗右のやつ--------------------------------------
-  if(width*7/8-aseRLength/2<mouseX&&mouseX<width*7/8+aseRLength/2&&height*5/6-aseRLength/2<mouseY&&mouseY<height*5/6+aseRLength/2){
-     if(aseR==false){
-        aseR=true; 
-     }
-  }
+  ////汗右のやつ--------------------------------------
+  //if(width*7/8-aseRLength/2<mouseX&&mouseX<width*7/8+aseRLength/2&&height*5/6-aseRLength/2<mouseY&&mouseY<height*5/6+aseRLength/2){
+  //   if(aseR==false){
+  //      aseR=true; 
+  //   }
+  //}
   //汗左のやつ--------------------------------------
   if(width/8-aseLLength/2<mouseX&&mouseX<width/8+aseLLength/2&&height/6-aseLLength/2<mouseY&&mouseY<height/6+aseRLength/2){
      if(aseL==false){
