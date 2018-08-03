@@ -14,8 +14,9 @@ ArrayList<Fireworks> fireworks=new ArrayList<Fireworks>();
 int power=180;
 
 void setup () {
+  noCursor();
   //OSC受信のとこ----------------------
-  oscP5=new OscP5(this, 12000);
+  oscP5=new OscP5(this, 12345);
   //mouseの位置の初期設定
   mouseLoc=new PVector(width/2, height/2);
   //mouseClickの初期化
