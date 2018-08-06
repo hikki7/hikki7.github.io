@@ -15,19 +15,21 @@ int counter = 0;
 
 
 void setup() {
-  // use full screen size 
-  //size(displayWidth, displayHeight);
   fullScreen();
   background(255);
   smooth();
+  
   cursor(CROSS);
 
   x = mouseX;
   y = mouseY;
 
+  //どのfontにしてどのsizeにするか
   font = createFont("American Typewriter",10);
   //font = createFont("ArnhemFineTT-Normal",10);
+  //fontにするときめる
   textFont(font,fontSizeMin);
+  
   textAlign(LEFT);
   fill(0);
 
@@ -42,6 +44,7 @@ void setup() {
 
 void draw() {
   if (mousePressed) {
+    //mouseからの距離の取得
     float d = dist(x,y, mouseX,mouseY);
     textFont(font,fontSizeMin+d/2);
     char newLetter = letters.charAt(counter);
