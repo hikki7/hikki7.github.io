@@ -5,10 +5,11 @@ var wind;
 var position;
 
 function setup() {
-  var canvas=createCanvas(windowWidth, windowHeight,WEBGL);
+  var canvas=createCanvas(windowWidth, windowHeight);
   canvas.parent('canvas-header');
   // Request the data from apixu.com
-  var url = 'https://api.apixu.com/v1/current.json?key=513d8003c8b348f1a2461629162106&q=NYC';
+  var url = 'https://api.github.com';
+
   loadJSON(url, gotWeather);
   // Circle starts in the middle
   position = createVector(width/2, height/2);
@@ -17,7 +18,7 @@ function setup() {
 }
 
 function draw() {
-  background(200);
+  background(0);
 
   // This section draws an arrow pointing in the direction of wind
   push();
@@ -26,7 +27,7 @@ function draw() {
   //heading()で回転するってこと
   rotate(wind.heading() + PI/2);
   noStroke();
-  fill(255);
+  fill(40);
   ellipse(0, 0, 48, 48);
 
   stroke(45, 123, 182);
@@ -55,17 +56,18 @@ function draw() {
 
 function gotWeather(weather) {
 
-  // Get the angle (convert to radians)
-  var angle = radians(Number(weather.current.wind_degree));
-  // Get the wind speed
-  var windmag = Number(weather.current.wind_mph);
-
-  // Display as HTML elements
-  var temperatureDiv = createDiv(floor(weather.current.temp_f) + '&deg;');
-  var windDiv = createDiv("WIND " + windmag + " <small>MPH</small>");
-
-  // Make a vector
-  wind = p5.Vector.fromAngle(angle);
+  console.log('きた？？');
+  // // Get the angle (convert to radians)
+  // var angle = radians(Number(weather.current.wind_degree));
+  // // Get the wind speed
+  // var windmag = Number(weather.current.wind_mph);
+  //
+  // // Display as HTML elements
+  // var temperatureDiv = createDiv(floor(weather.current.temp_f) + '&deg;');
+  // var windDiv = createDiv("WIND " + windmag + " <small>MPH</small>");
+  //
+  // // Make a vector
+  // wind = p5.Vector.fromAngle(angle);
 }
 
 function windowResized(){

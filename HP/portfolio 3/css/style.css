@@ -169,4 +169,6 @@ header p{
 footer{
     float:right;
     padding-right: 16px;
+    background-color: #000;
+    color: #ccc;
 }
