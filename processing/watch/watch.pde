@@ -1,3 +1,7 @@
+import processing.sound.*;
+
+SoundFile backMusic;
+
 Clock clock;
 Effect effect;
 
@@ -9,8 +13,12 @@ float dir;
 void setup() {
   fullScreen(P2D);
   smooth();
+  noCursor();
   effect=new Effect(dir);
   dir=width/4;
+  
+  backMusic=new SoundFile(this,"communication_of_aliens.mp3");
+  backMusic.loop();
 }
 
 
@@ -26,6 +34,8 @@ void draw() {
   float hourTheta=radians(hour*30);
   float minuteTheta=radians(minute*6);
   float secondTheta=radians(second*6);
+  
+  effect.secondEffect();
 
 
   //時計の外側の部分を作る
