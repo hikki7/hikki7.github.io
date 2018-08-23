@@ -2,51 +2,58 @@ class Clock {
 
   //===========それぞれの向かっているときの惑星の位置ベクトル
   PVector earthLocation;
+  PVector planetLocation;
   //===========時間の位置ベクトル
   PVector el;
+  PVector pl;
   //===========中心からの方向ベクトル
   PVector de;
+  PVector dp;
   //===========時計の直径
   float diam;
   //==========角度
   float eTheta;
+  float pTheta;
   //===========円の大きさ
   float d;
   //===========中心
   PVector center;
-  //===========1秒前の位置ベクトル
-  PVector be;
-  
-  Clock(float earthT, float diameter,float beforeTheta) {
-    earthLocation=new PVector(width/2,height/2);
+
+
+  Clock(float earthT, float diameter, float planetT) {
+    earthLocation=new PVector(width/2, height/2);
+    planetLocation=new PVector(width/2, height/2);
     eTheta=earthT-PI/2;
+    pTheta=planetT-PI/2;
     diam=diameter;
     el=new PVector(width/2+diam*cos(eTheta), height/2+diam*sin(eTheta));
-    be=new PVector(width/2+diam*cos(beforeTheta-PI/2), height/2+diam*sin(beforeTheta-PI/2));
+    pl=new PVector(width/2+diam*cos(pTheta), height/2+diam*sin(pTheta));
     d=3;
-    center=new PVector(width/2,height/2);
-    de=PVector.sub(el,center);
+    center=new PVector(width/2, height/2);
+    de=PVector.sub(el, center);
     de.normalize();
     de.mult(5);
+    dp=PVector.sub(pl, center);
+    dp.normalize();
+    dp.mult(5);
   }
 
   void display() {
     //==============時計の役割
     noStroke();
-    fill(10,10,200);
-    for(int i=0;i<width/4;i++){
-        ellipse(earthLocation.x,earthLocation.y,d,d);
-        earthLocation.add(de);
+    for (int i=0; i<width/4; i++) {
+      fill(10, 10, 200);
+      ellipse(earthLocation.x, earthLocation.y, d, d);
+      earthLocation.add(de);
+      fill(200, 10, 10);
+      ellipse(planetLocation.x, planetLocation.y, d, d);
+      planetLocation.add(dp);
     }
 
     noStroke();
-    fill(10, 10, 200,60);
+    fill(10, 10, 200, 60);
     ellipse(el.x, el.y, d, d);
-    
-    //=============時計の下の部分
-    fill(10,10,200);
-    triangle(center.x,center.y,el.x,el.y,be.x,be.y);
-    
-    
+    fill(200, 10, 10, 60);
+    ellipse(pl.x, pl.y, d, d);
   }
 }
