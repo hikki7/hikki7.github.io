@@ -1,5 +1,10 @@
 class Clock {
 
+  //==============右上のtext用
+  PFont fontType;
+  int daycount=0;
+  String earthDay;
+
   //===========それぞれの向かっているときの惑星の位置ベクトル
   PVector earthLocation;
   PVector planetLocation;
@@ -21,6 +26,7 @@ class Clock {
 
 
   Clock(float earthT, float diameter, float planetT) {
+    fontType=loadFont("Stellar-Light-48.vlw");
     earthLocation=new PVector(width/2, height/2);
     planetLocation=new PVector(width/2, height/2);
     eTheta=earthT-PI/2;
@@ -55,5 +61,15 @@ class Clock {
     ellipse(el.x, el.y, d, d);
     fill(200, 10, 10, 60);
     ellipse(pl.x, pl.y, d, d);
+  }
+
+  void textDiaplay() {
+    daycount=frameCount/60;
+    earthDay="earth's day is ";
+    textFont(fontType, 30);
+    textAlign(RIGHT);
+    fill(0, 102, 153);
+    text(earthDay, width-50, 60);
+    text(daycount, width-10, 60);
   }
 }

@@ -60,4 +60,5 @@ void draw() {
   }
   clock=new Clock(earthTheta, dir, planetTheta);
   clock.display();
+  clock.textDiaplay();
 }
