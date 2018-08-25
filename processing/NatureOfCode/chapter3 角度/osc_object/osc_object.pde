@@ -1,17 +1,15 @@
 Oscillator osc;
 
-void setup(){
+void setup() {
   fullScreen(P2D);
-  background(21);
+  noCursor();
   osc=new Oscillator();
 }
 
 
-void draw(){
-  fill(21,20);
-  noStroke();
-  rect(0,0,width,height);
-  
+void draw() {
+  background(21);
+
   osc.oscillate();
   osc.display();
 }
