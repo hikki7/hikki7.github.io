@@ -5,6 +5,7 @@ Attractor a;
 void setup() {
   fullScreen(P3D);
   smooth();
+  noCursor();
   background(51);
   for (int i=0; i<mover.length; i++) {
     mover[i]=new Mover(random(0.1, 2), random(width), random(height), random(height/2));
