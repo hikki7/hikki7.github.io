@@ -51,14 +51,11 @@ class Clock {
     dayCount=count/60;
     secondTheta=radians(dayCount*30);
     //if(secondTheta>TWO_PI) secondTheta-=TWO_PI;
-    //println(dayCount);
-    //println(dayCount*30);
-    //println(degrees(secondTheta));
     fill(0, 102, 153, 60);
     noStroke();
     pushMatrix();
     translate(width/2, height/2);
-    location=new PVector(diam*cos(secondTheta-PI/2), diam*sin(secondTheta)-PI/2);
+    location=new PVector(diam*cos(secondTheta-PI/2), diam*sin(secondTheta-PI/2));
     halfLocation=new PVector(0, 0);
     direction=location;
     direction.normalize();
