@@ -4,7 +4,6 @@ float dir;//時計の半径
 int day;//日
 int count=0;
 //水星、金星、火星、木星、土星、天王星、海王星、月
-float[]dDay={58.65, 243.0, 1.026, 0.408, 0.425, 0.746, 0.796, 27.32};
 int choosePlanet=0;
 
 void setup() {

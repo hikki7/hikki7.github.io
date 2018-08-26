@@ -1,5 +1,7 @@
 class Clock {
   int choosePlanet;
+  //自転の時差
+  float[]dDay={58.65, 243.0, 1.026, 0.408, 0.425, 0.746, 0.796, 27.32};
   //=============clockの外見の部分
   float diam;
   PVector clockLoc;
@@ -16,8 +18,11 @@ class Clock {
   PFont fontType;
   String earthDay;
   String wPlanet;
+  String planetDay;
   int dayCount;
-  String[]planet={"水星", "金星", "火星", "木星", "土星", "天王星", "海王星", "月"};
+  int planetCount;
+  
+  String[]planet={"Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Moon"};
 
   Clock(float _diam, float _day, int _count, int _choosePlanet) {
     diam=_diam;
@@ -67,19 +72,18 @@ class Clock {
   }
 
   void textDisplay() {
-    earthDay="earth's day is ";
     dayCount=count/60;
-    wPlanet="The planet you chose is ";
+    planetCount=int(dayCount*dDay[choosePlanet]);
+    earthDay="earth's day is "+dayCount;
+    wPlanet="The planet you chose is "+planet[choosePlanet];
+    planetDay="planet's day is "+planetCount;
     //fontは後回し
     //textFont(fontType);
     textSize(30);
-    textAlign(RIGHT);
+    textAlign(LEFT);
     fill(0, 102, 153);
-    text(earthDay, width-50, 60);
-    text(dayCount, width-10, 60);
-    text(wPlanet, width-50, 120);
-    //なぜかここがでてこない、理由は不明
-    text(planet[choosePlanet], width-10, 120);
-    println(planet[choosePlanet]);
+    text(earthDay, 10, 120);
+    text(wPlanet, 10, 60);
+    text(planetDay,10,180);
   }
 }
