@@ -13,13 +13,19 @@ class Clock {
   PVector halfLocation;//途中の位置ベクトル
   PVector direction;//方向ベクトル
   int count;
+  
+  //==========planetsの針の表示
+  float planetsTheta;
+  PVector planetLoc;
+  PVector halfPlanets;
+  PVector planetsDir;
 
   //============右上のtext
   PFont fontType;
   String earthDay;
   String wPlanet;
   String planetDay;
-  int dayCount;
+  float dayCount;
   int planetCount;
   
   String[]planet={"Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Moon"};
@@ -34,7 +40,7 @@ class Clock {
     dayCount=count/60;
   }
 
-  //時計の基盤を作るもの
+  //===============時計の基盤を作るもの
   void setClock() {
     stroke(144, 60);
     strokeWeight(2);
@@ -46,11 +52,19 @@ class Clock {
     }
     popMatrix();
   }
+  
+  //=============planetsが変更された時に中の後をなくす
+  void drawEllipse(){
+     noStroke();
+     fill(21);
+     ellipse(width/2,height/2,diam*2,diam*2);
+  }
 
+  //============地球の時間の表示
   void drawDay() {
-    dayCount=count/60;
+    //ここにfloatを付けるとint/float扱いになり、floatになるっぽい
+    dayCount=count/float(60);
     secondTheta=radians(dayCount*30);
-    //if(secondTheta>TWO_PI) secondTheta-=TWO_PI;
     fill(0, 102, 153, 60);
     noStroke();
     pushMatrix();
@@ -67,11 +81,33 @@ class Clock {
     }
     popMatrix();
   }
+  
+  //============任意のplanetsの時間の表示
+  void planetsDay(){
+    //ここで秒数の時差の取得
+    dayCount=count/float(60)*dDay[choosePlanet];
+    planetsTheta=radians(dayCount*30);
+    fill(153,102,0,60);
+    noStroke();
+    pushMatrix();
+    translate(width/2,height/2);
+    planetLoc=new PVector(diam*cos(planetsTheta-PI/2), diam*sin(planetsTheta-PI/2));
+    halfPlanets=new PVector(0, 0);
+    planetsDir=planetLoc;
+    planetsDir.normalize();
+    planetsDir.mult(5);
+    ellipse(planetLoc.x, planetLoc.y, secondDiameter, secondDiameter);
+    for (int i=0; i<diam/5; i++) {
+      ellipse(halfPlanets.x, halfPlanets.y, secondDiameter, secondDiameter);
+      halfPlanets.add(planetsDir);
+    }
+    popMatrix();
+  }
 
   void textDisplay() {
     dayCount=count/60;
     planetCount=int(dayCount*dDay[choosePlanet]);
-    earthDay="earth's day is "+dayCount;
+    earthDay="earth's day is "+int(dayCount);
     wPlanet="The planet you chose is "+planet[choosePlanet];
     planetDay="planet's day is "+planetCount;
     //fontは後回し
