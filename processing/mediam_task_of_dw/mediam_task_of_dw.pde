@@ -19,37 +19,49 @@ void draw() {
   noStroke();
   rect(0, 0, width, height);
   count++;
-  
+
   //1秒で1日にするため
   day=count/float(60);
-  
+
   //object指向
   clock=new Clock(dir, day, count, choosePlanet);
-  
+
   //earthのbasic
   clock.basicEarth();
-  
+
   //planetsのbasic
   clock.basicPlanets();
-  
+
   //earthの針
   clock.drawEarth();
-  
+
   //planetsの針
   clock.drawPlanet();
-  
+
   //earthのtext
   clock.textEarth();
-  
+
   //planetのtext
   clock.textPlanets();
-  
+
   //earthのgui的な部分
   clock.guiEarth();
+
+  //planetのgui的な部分
+  clock.guiplanets();
+
+  //上のtextの表示
+  clock.drawSpeed();
+
+  //下のplanetsの部分を出す
+  clock.borderPlanets();
+
+  //下のplanetを出力
+  clock.selectedPlanets();
 }
 
 void keyPressed() {
-  
+
   if (key=='a'||key=='A') {
     //水星
     choosePlanet=0;
