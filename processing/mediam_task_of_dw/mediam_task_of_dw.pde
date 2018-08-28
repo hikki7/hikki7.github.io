@@ -10,9 +10,8 @@ void setup() {
   fullScreen(P2D);
   smooth();
   background(21);
-  blendMode(SCREEN);
   colorMode(HSB,360,100,100);
-  dir=width/16;
+  dir=width/20;
 }
 
 
@@ -30,18 +29,12 @@ void draw() {
 
   //下のplanetを出力
   clock.selectedPlanets();
-
-  //earthのbasic
-  clock.basicEarth();
-
-  //planetsのbasic
-  clock.basicPlanets();
-
-  //earthの針
-  clock.drawEarth();
-
-  //planetsの針
-  clock.drawPlanet();
+  
+  //下のplanetsの部分を出す
+  clock.borderPlanets();
+  
+  //下の部分のplanetsのtextの部分
+  clock.informPlanets();
 
   //earthのtext
   clock.textEarth();
@@ -57,9 +50,20 @@ void draw() {
 
   //上のtextの表示
   clock.drawSpeed();
+  
+  //earthのbasic
+  clock.basicEarth();
 
-  //下のplanetsの部分を出す
-  clock.borderPlanets();
+  //planetsのbasic
+  clock.basicPlanets();
+  
+   //earthの針
+  clock.drawEarth();
+
+  //planetsの針
+  clock.drawPlanet();
+
+
 }
 
 void keyPressed() {
