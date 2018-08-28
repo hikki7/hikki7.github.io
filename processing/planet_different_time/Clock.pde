@@ -45,7 +45,7 @@ class Clock {
     stroke(144, 60);
     strokeWeight(2);
     pushMatrix();
-    translate(width/2, height/2);
+    translate(width*5/8, height/2);
     for (int i=0; i<360; i++) {
       clockLoc=new PVector(diam*cos(radians(i)), diam*sin(radians(i)));
       point(clockLoc.x, clockLoc.y);
@@ -57,7 +57,7 @@ class Clock {
   void drawEllipse(){
      noStroke();
      fill(21);
-     ellipse(width/2,height/2,diam*2,diam*2);
+     ellipse(width*5/8,height/2,diam*2,diam*2);
   }
 
   //============地球の時間の表示
@@ -68,7 +68,7 @@ class Clock {
     fill(0, 102, 153, 60);
     noStroke();
     pushMatrix();
-    translate(width/2, height/2);
+    translate(width*5/8, height/2);
     location=new PVector(diam*cos(secondTheta-PI/2), diam*sin(secondTheta-PI/2));
     halfLocation=new PVector(0, 0);
     direction=location;
@@ -90,7 +90,7 @@ class Clock {
     fill(153,102,0,60);
     noStroke();
     pushMatrix();
-    translate(width/2,height/2);
+    translate(width*5/8,height/2);
     planetLoc=new PVector(diam*cos(planetsTheta-PI/2), diam*sin(planetsTheta-PI/2));
     halfPlanets=new PVector(0, 0);
     planetsDir=planetLoc;
@@ -104,6 +104,12 @@ class Clock {
     popMatrix();
   }
 
+  void textFuild(){
+      fill(30);
+      noStroke();
+      rect(0,0,width/4,height);
+  }  
+
   void textDisplay() {
     dayCount=count/60;
     planetCount=int(dayCount*dDay[choosePlanet]);
@@ -112,7 +118,7 @@ class Clock {
     planetDay="planet's day is "+planetCount;
     //fontは後回し
     //textFont(fontType);
-    textSize(30);
+    textSize(20);
     textAlign(LEFT);
     fill(0, 102, 153);
     text(earthDay, 10, 120);

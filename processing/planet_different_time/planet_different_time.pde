@@ -10,7 +10,7 @@ void setup() {
   fullScreen(P2D);
   smooth();
   noCursor();
-  dir=width/4;
+  dir=width/5;
   background(21);
 }
 
@@ -29,6 +29,8 @@ void draw() {
   clock.drawDay();
   //plenetsの位置の表示
   clock.planetsDay();
+  //textのbackgroundの表示
+  clock.textFuild();
   //textの表示
   clock.textDisplay();
 }
