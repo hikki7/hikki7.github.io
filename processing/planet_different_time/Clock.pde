@@ -2,6 +2,10 @@ class Clock {
   int choosePlanet;
   //自転の時差
   float[]dDay={58.65, 243.0, 1.026, 0.408, 0.425, 0.746, 0.796, 27.32};
+  //惑星のそれぞれの情報
+  float[]M={3.285, 48.67, 6.39, 18980, 5683, 868.1, 1024.3, 0.734581};
+  float[]R={2440, 6052, 3390, 69911, 58232, 25362, 24622, 1.737};
+
   //=============clockの外見の部分
   float diam;
   PVector clockLoc;
@@ -13,7 +17,7 @@ class Clock {
   PVector halfLocation;//途中の位置ベクトル
   PVector direction;//方向ベクトル
   int count;
-  
+
   //==========planetsの針の表示
   float planetsTheta;
   PVector planetLoc;
@@ -25,9 +29,11 @@ class Clock {
   String earthDay;
   String wPlanet;
   String planetDay;
+  String weightPlanet;
+  String radiusPlanet;
   float dayCount;
   int planetCount;
-  
+
   String[]planet={"Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Moon"};
 
   Clock(float _diam, float _day, int _count, int _choosePlanet) {
@@ -52,12 +58,12 @@ class Clock {
     }
     popMatrix();
   }
-  
+
   //=============planetsが変更された時に中の後をなくす
-  void drawEllipse(){
-     noStroke();
-     fill(21);
-     ellipse(width*5/8,height/2,diam*2,diam*2);
+  void drawEllipse() {
+    noStroke();
+    fill(21);
+    ellipse(width*5/8, height/2, diam*2, diam*2);
   }
 
   //============地球の時間の表示
@@ -81,16 +87,16 @@ class Clock {
     }
     popMatrix();
   }
-  
+
   //============任意のplanetsの時間の表示
-  void planetsDay(){
+  void planetsDay() {
     //ここで秒数の時差の取得
     dayCount=count/float(60)*dDay[choosePlanet];
     planetsTheta=radians(dayCount*30);
-    fill(153,102,0,60);
+    fill(153, 102, 0, 60);
     noStroke();
     pushMatrix();
-    translate(width*5/8,height/2);
+    translate(width*5/8, height/2);
     planetLoc=new PVector(diam*cos(planetsTheta-PI/2), diam*sin(planetsTheta-PI/2));
     halfPlanets=new PVector(0, 0);
     planetsDir=planetLoc;
@@ -104,10 +110,10 @@ class Clock {
     popMatrix();
   }
 
-  void textFuild(){
-      fill(30);
-      noStroke();
-      rect(0,0,width/4,height);
+  void textFuild() {
+    fill(30);
+    noStroke();
+    rect(0, 0, width/4, height);
   }  
 
   void textDisplay() {
@@ -115,14 +121,26 @@ class Clock {
     planetCount=int(dayCount*dDay[choosePlanet]);
     earthDay="earth's day is "+int(dayCount);
     wPlanet="The planet you chose is "+planet[choosePlanet];
-    planetDay="planet's day is "+planetCount;
+    planetDay="The day of this planet is "+planetCount;
+    weightPlanet="The mass of this planet is "+M[choosePlanet]+"× 10^23 kg";
+    radiusPlanet="The radius of this planet is "+R[choosePlanet]+" km";
+    //グラフの元の部分
+    fill(51);
+    rect(10, 255, width/4-20, 15);
+    rect(10, 345, width/4-20, 15);
     //fontは後回し
     //textFont(fontType);
-    textSize(20);
+    textSize(15);
     textAlign(LEFT);
     fill(0, 102, 153);
-    text(earthDay, 10, 120);
     text(wPlanet, 10, 60);
-    text(planetDay,10,180);
+    text(earthDay, 10, 120);
+    text(planetDay, 10, 180);
+    text(weightPlanet, 10, 240);
+    float widM=map(M[choosePlanet]/18980, 0, 1, 0, width/4-20);
+    float widR=map(R[choosePlanet]/69911, 0, 1, 0, width/4-20);
+    rect(10, 255, widM, 15);
+    text(radiusPlanet, 10, 330);
+    rect(10, 345, widR, 15);
   }
 }
