@@ -50,6 +50,7 @@ class Clock {
   float diameter;//これは秒針みたいなイメージ
   float dayPlanets;
   PVector[]location=new PVector[8];//下のplanetの位置
+  float[]dm=new float[8];//下の部分の直径
 
   Clock(float _diam, float _day, int _count, int _choosePlanet) {
     diam=_diam;
@@ -82,6 +83,16 @@ class Clock {
     location[5]=new PVector(width*3/4+50, height*5/6);
     location[6]=new PVector(width*7/8+50, height*5/6);
     location[7]=new PVector(width-30, height*5/6);
+
+    //=============ここからは下のplanetsのdの一覧
+    dm[0]=R[0]/earthR;
+    dm[1]=R[1]/earthR;
+    dm[2]=R[2]/earthR;
+    dm[3]=R[3]/earthR;
+    dm[4]=R[4]/earthR;
+    dm[5]=R[5]/earthR;
+    dm[6]=R[6]/earthR;
+    dm[7]=R[7]/earthR;
   }
 
   //======================地球のbasicの実装
@@ -323,36 +334,28 @@ class Clock {
     stroke(196);
     strokeWeight(3);
     //=====================水星
-    float dm=R[0]/earthR;
     fill(col[0]);
-    ellipse(location[0].x, location[0].y, dm*30, dm*30);
+    ellipse(location[0].x, location[0].y, dm[0]*30, dm[0]*30);
     //=====================金星
-    dm=R[1]/earthR;
     fill(col[1]);
-    ellipse(location[1].x, location[1].y, dm*30, dm*30);
+    ellipse(location[1].x, location[1].y, dm[1]*30, dm[1]*30);
     //====================火星
-    dm=R[2]/earthR;
     fill(col[2]);
-    ellipse(location[2].x, location[2].y, dm*30, dm*30);
+    ellipse(location[2].x, location[2].y, dm[2]*30, dm[2]*30);
     //===================木星
-    dm=R[3]/earthR;
     fill(col[3]);
-    ellipse(location[3].x, location[3].y, dm*30, dm*30);
+    ellipse(location[3].x, location[3].y, dm[3]*30, dm[3]*30);
     //===================土星
-    dm=R[4]/earthR;
     fill(col[4]);
-    ellipse(location[4].x, location[4].y, dm*30, dm*30);
+    ellipse(location[4].x, location[4].y, dm[4]*30, dm[4]*30);
     //==================天王星
-    dm=R[5]/earthR;
     fill(col[5]);
-    ellipse(location[5].x, location[5].y, dm*30, dm*30);
+    ellipse(location[5].x, location[5].y, dm[5]*30, dm[5]*30);
     //=================海王星
-    dm=R[6]/earthR;
     fill(col[6]);
-    ellipse(location[6].x, location[6].y, dm*30, dm*30);
+    ellipse(location[6].x, location[6].y, dm[6]*30, dm[6]*30);
     //=================月
-    dm=R[7]/earthR;
     fill(col[7]);
-    ellipse(location[7].x, location[7].y, dm*30, dm*30);
+    ellipse(location[7].x, location[7].y, dm[7]*30, dm[7]*30);
   }
 }

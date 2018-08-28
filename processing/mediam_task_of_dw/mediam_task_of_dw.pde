@@ -26,6 +26,9 @@ void draw() {
   //object指向
   clock=new Clock(dir, day, count, choosePlanet);
 
+  //下のplanetを出力
+  clock.selectedPlanets();
+
   //earthのbasic
   clock.basicEarth();
 
@@ -55,9 +58,6 @@ void draw() {
 
   //下のplanetsの部分を出す
   clock.borderPlanets();
-
-  //下のplanetを出力
-  clock.selectedPlanets();
 }
 
 void keyPressed() {
