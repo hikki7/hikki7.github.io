@@ -7,9 +7,11 @@ int count=0;
 int choosePlanet=0;
 
 void setup() {
-  fullScreen(P3D);
+  fullScreen(P2D);
   smooth();
   background(21);
+  blendMode(SCREEN);
+  colorMode(HSB,360,100,100);
   dir=width/16;
 }
 

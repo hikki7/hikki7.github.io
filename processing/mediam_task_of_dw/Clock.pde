@@ -50,7 +50,10 @@ class Clock {
   float diameter;//これは秒針みたいなイメージ
   float dayPlanets;
   PVector[]location=new PVector[8];//下のplanetの位置
-  float[]dm=new float[8];//下の部分の直径
+  float[]dm=new float[8];//下の部分比を求める
+  float[]dia=new float[8];//下の部分の直径を求める
+  int dr=10;
+
 
   Clock(float _diam, float _day, int _count, int _choosePlanet) {
     diam=_diam;
@@ -93,6 +96,11 @@ class Clock {
     dm[5]=R[5]/earthR;
     dm[6]=R[6]/earthR;
     dm[7]=R[7]/earthR;
+
+    //=============下の部分の直径を求める
+    for (int i=0; i<dia.length; i++) {
+      dia[i]=dm[i]*30;
+    }
   }
 
   //======================地球のbasicの実装
@@ -331,31 +339,23 @@ class Clock {
 
   //===================下の部分のplanetsの実装
   void selectedPlanets() {
-    stroke(196);
-    strokeWeight(3);
-    //=====================水星
-    fill(col[0]);
-    ellipse(location[0].x, location[0].y, dm[0]*30, dm[0]*30);
-    //=====================金星
-    fill(col[1]);
-    ellipse(location[1].x, location[1].y, dm[1]*30, dm[1]*30);
-    //====================火星
-    fill(col[2]);
-    ellipse(location[2].x, location[2].y, dm[2]*30, dm[2]*30);
-    //===================木星
-    fill(col[3]);
-    ellipse(location[3].x, location[3].y, dm[3]*30, dm[3]*30);
-    //===================土星
-    fill(col[4]);
-    ellipse(location[4].x, location[4].y, dm[4]*30, dm[4]*30);
-    //==================天王星
-    fill(col[5]);
-    ellipse(location[5].x, location[5].y, dm[5]*30, dm[5]*30);
-    //=================海王星
-    fill(col[6]);
-    ellipse(location[6].x, location[6].y, dm[6]*30, dm[6]*30);
-    //=================月
-    fill(col[7]);
-    ellipse(location[7].x, location[7].y, dm[7]*30, dm[7]*30);
+    noFill();
+    for (int i=0; i<location.length; i++) {
+      for (int j = 1; j < 50; ++j) {
+        strokeWeight(j);
+        stroke(
+          map(j, 1, 50, 180, 360), 
+          80, 
+          map(j, 1, 50, 15, 1), 
+          100
+          );
+        ellipse(location[i].x, location[i].y, dia[i], dia[i]);
+      }
+    }
+
+    //for (int i=0; i<location.length; i++) {
+    //  fill(col[i]);
+    //  ellipse(location[i].x, location[i].y, dia[i], dia[i]);
+    //}
   }
 }
