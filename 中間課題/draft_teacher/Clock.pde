@@ -1,9 +1,9 @@
 class Clock {
 
   //自転の時差
-  //float[]dDay={58.65, 243.0, 1.026, 0.408, 0.425, 0.746, 0.796, 27.32};
+  float[]dDay={58.65, 243.0, 1.026, 0.408, 0.425, 0.746, 0.796, 27.32};
   //一般相対性理論の時差(100年あたりのsecondの違い)
-  float[]dDay={0.3, 1.9, 0.4, 63.6, 22.8, 8.0, 9.7, 99.0};
+  //float[]dDay={0.3, 1.9, 0.4, 63.6, 22.8, 8.0, 9.7, 99.0};
   //====================惑星のそれぞれの情報
   //planetsの質量
   float[]M={3.285, 48.67, 6.39, 18980, 5683, 868.1, 1024.3, 0.734581};
@@ -135,7 +135,7 @@ class Clock {
     day=count/float(60);
     theta=radians(day*float(6))-PI/2;
     dayPlanets=day*dDay[choosePlanet];
-    planetTheta=radians((day*(dDay[choosePlanet]/60)+day)*float(6))-PI/2;
+    planetTheta=radians((day*dDay[choosePlanet])*float(6))-PI/2;
   }
 
   //======================地球のbasicの実装
@@ -202,7 +202,7 @@ class Clock {
 
   //=================地球のtext
   void textEarth() {
-    String EarthTime=int(day*100/60)+"years";
+    String EarthTime=int(day)+" days";
     fill(earthCol, 50, 75);
     textAlign(CENTER);
     textSize(15);
@@ -213,7 +213,7 @@ class Clock {
 
   //===============planetsのtext
   void textPlanets() {
-    String planetTime="dt:"+int(dayPlanets/60)+" sencond";
+    String planetTime=int(dayPlanets)+" days";
     fill(col[choosePlanet], 50, 75);
     textAlign(CENTER);
     textSize(15);
@@ -411,7 +411,7 @@ class Clock {
 
   //======================上のtextのspeedが何倍かを表示
   void drawSpeed() {
-    String speedX="×"+dDay[choosePlanet]+" second";
+    String speedX="×"+dDay[choosePlanet]+" days";
     textAlign(CENTER);
     fill(255);
     noStroke();
