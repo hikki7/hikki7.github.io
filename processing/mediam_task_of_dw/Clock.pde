@@ -1,3 +1,5 @@
+
+
 class Clock {
 
   //自転の時差
@@ -19,11 +21,14 @@ class Clock {
   String[]planet={"Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Moon"};
   //planetsの色
   float[]col=new float[8];
+  color[]Col=new color[8];
+  color[]backCol=new color[8];
 
   //==================地球の基本情報
 
   //地球の色
   float earthCol;
+  color earthColor;
   //地球の質量
   float earthM=59.72 ;
   //地球の半径
@@ -55,6 +60,7 @@ class Clock {
   int dr=10;
   int fontSize=12; 
 
+
   Clock(float _diam, float _day, int _count, int _choosePlanet) {
     diam=_diam;
     day=_day;
@@ -69,17 +75,23 @@ class Clock {
     col[5]=193;
     col[6]=221;
     col[7]=83.4;
+    
+    for(int i=0;i<Col.length;i++){
+       Col[i]=color(col[i],50,75); 
+       backCol[i]=color(col[i],50,20);
+    }
 
     centerEarth=new PVector(width/4+width/16, height/3); 
     centerPlanets=new PVector(width*3/4-width/16, height/3);
     earthCol=226;
+    earthColor=color(earthCol,50,75);
     theta=radians(day*float(30))-PI/2;
     diameter=width/8;
     dayPlanets=day*dDay[choosePlanet];
 
     //=============ここから下のplanetsの一覧
-    for(int i=0;i<location.length;i++){
-       location[i]=new PVector(width*(i+1)/9,height*5/6); 
+    for (int i=0; i<location.length; i++) {
+      location[i]=new PVector(width*(i+1)/9, height*5/6);
     }
 
     //=============ここからは下のplanetsのdの一覧
@@ -98,7 +110,7 @@ class Clock {
 
   //======================地球のbasicの実装
   void basicEarth() {
-    stroke(earthCol,50,75);
+    stroke(earthCol, 50, 75);
     strokeWeight(2);
     for (int i=0; i<360; i++) {
       PVector basic=new PVector(centerEarth.x+diam*cos(radians(i)), centerEarth.y+diam*sin(radians(i)));
@@ -108,7 +120,7 @@ class Clock {
 
   //===================planetsのbasicの実装
   void basicPlanets() {
-    stroke(col[choosePlanet],50,75);
+    stroke(col[choosePlanet], 50, 75);
     float dm=R[choosePlanet]/earthR;
     for (int i=0; i<360; i++) {
       PVector basic=new PVector(centerPlanets.x+diam*cos(radians(i))*dm, centerPlanets.y+diam*sin(radians(i))*dm);
@@ -139,7 +151,7 @@ class Clock {
   //=================地球のtext
   void textEarth() {
     String EarthTime=int(day)+" days";
-    fill(earthCol,50,75);
+    fill(earthCol, 50, 75);
     textAlign(CENTER);
     textSize(20);
     text("Earth", centerEarth.x, centerEarth.y+diameter*3/2-60);
@@ -150,7 +162,7 @@ class Clock {
   //===============planetsのtext
   void textPlanets() {
     String planetTime=int(dayPlanets)+" days";
-    fill(col[choosePlanet],50,75);
+    fill(col[choosePlanet], 50, 75);
     textAlign(CENTER);
     textSize(20);
     text(planet[choosePlanet], centerPlanets.x, centerPlanets.y+diameter*3/2-60);
@@ -158,156 +170,133 @@ class Clock {
     text(planetTime, centerPlanets.x, centerPlanets.y+diameter*3/2);
   }
 
-  //==============地球のgui的な部分
+  //==============地球のgui
   void guiEarth() {
     noStroke();
-    //=============地球の半径
-    String radiusE="The radius of the earth is "+int(earthR)+" km";
-    textAlign(LEFT);
-    textSize(fontSize);
-    fill(earthCol,50,75);
-    text(radiusE, 10, 30);
-    fill(30);
-    rect(10, 50, width/8, 15);
-    float x=map(earthR/R[3], 0, 1, 0, width/8);
-    fill(earthCol,50,75);
-    rect(10, 50, x, 15);
+    Slider earthRadius;
+    earthRadius=cp5.addSlider("The radius of the earth")
+      .setPosition(10,70)
+      .setRange(0,R[3])
+      .setValue(earthR)
+      .setSize(100, 10)
+      .setColorValueLabel(earthColor);
+      
 
     //=============地球の質量
-    String massE="The mass of the earth is "+int(earthM)+" ×10^23 kg";
-    textAlign(LEFT);
-    textSize(fontSize);
-    fill(earthCol,50,75);
-    text(massE, 10, 120);
-    fill(30);
-    rect(10, 140, width/8, 15);
-    x=map(earthM/M[3], 0, 1, 0, width/8);
-    fill(earthCol,75,50);
-    rect(10, 140, x, 15);
+    Slider earthMass;
+    earthMass=cp5.addSlider("The mass of the earth")
+      .setPosition(10,140)
+      .setRange(0,M[3])
+      .setValue(earthM)
+      .setSize(100, 10)
+      .setColorValueLabel(earthColor);
+
 
     //=============地球の重力
-    String gravityE="The gravity of the earth is "+earthG+" m/s^2";
-    textAlign(LEFT);
-    textSize(fontSize);
-    fill(earthCol,50,75);
-    text(gravityE, 10, 210);
-    fill(30);
-    rect(10, 230, width/8, 15);
-    x=map(earthG/G[3], 0, 1, 0, width/8);
-    fill(earthCol,50,75);
-    rect(10, 230, x, 15);
+    Slider earthGravity;
+    earthGravity=cp5.addSlider("The gravity of the earth")
+      .setPosition(10,210)
+      .setRange(0,G[3])
+      .setValue(earthG)
+      .setSize(100, 10)
+      .setColorValueLabel(earthColor);
 
     //============地球の公転周期
-    String rcE="The revolution cycle of the earth is "+earthRC+" day";
-    textAlign(LEFT);
-    textSize(fontSize);
-    fill(earthCol,50,75);
-    text(rcE, 10, 300);
-    fill(30);
-    rect(10, 320, width/8, 15);
-    x=map(earthRC/RC[6], 0, 1, 0, width/8);
-    fill(earthCol,50,75);
-    rect(10, 320, x, 15);
+    Slider earthRoC;
+    earthRoC=cp5.addSlider("The revolution cycle of the earth")
+      .setPosition(10,280)
+      .setRange(0,RC[6])
+      .setValue(earthRC)
+      .setSize(100, 10)
+      .setColorValueLabel(earthColor);
 
     //============地球の自転周期
-    String rpE="The rotation period of the earth is "+earthRP+" day";
-    textAlign(LEFT);
-    textSize(fontSize);
-    fill(earthCol,50,75);
-    text(rpE, 10, 390);
-    fill(30);
-    rect(10, 410, width/8, 15);
-    x=map(earthRP/RP[1], 0, 1, 0, width/8);
-    fill(earthCol,50,75);
-    rect(10, 410, x, 15);
+    Slider earthrp;
+    earthrp=cp5.addSlider("The rotation period of the earth")
+      .setPosition(10,350)
+      .setRange(0,RP[1])
+      .setValue(earthRP)
+      .setSize(100, 10)
+      .setColorValueLabel(earthColor);
 
     //============地球の表面積
-    String saE="The surface area of the earth is "+earthSA+" ×10^8 km^2";
-    textAlign(LEFT);
-    textSize(fontSize);
-    fill(earthCol,50,75);
-    text(saE, 10, 480);
-    fill(30);
-    rect(10, 500, width/8, 15);
-    x=map(earthSA/SA[1], 0, 1, 0, width/8);
-    fill(earthCol,50,75);
-    rect(10, 500, x, 15);
+    Slider earthsa;
+    earthsa=cp5.addSlider("The surface area of the earth")
+      .setPosition(10,420)
+      .setRange(0,SA[1])
+      .setValue(earthSA)
+      .setSize(100, 10)
+      .setColorValueLabel(earthColor);
   }
 
   //==============planetsのgui的な部分
   void guiplanets() {
     noStroke();
     //=============planetsの半径
-    String radiusP="The radius of "+planet[choosePlanet]+" is "+int(R[choosePlanet])+" km";
-    textAlign(RIGHT);
-    textSize(fontSize);
-    fill(col[choosePlanet],50,75);
-    text(radiusP, width-10, 30);
-    fill(30);
-    rect(width*7/8-10, 50, width/8, 15);
-    float x=map(R[choosePlanet]/R[3], 0, 1, 0, width/8);
-    fill(col[choosePlanet],50,75);
-    rect(width-10-x, 50, x, 15);
+    Slider planetRadius;
+    planetRadius=cp5.addSlider("The radius of the "+planet[choosePlanet])
+      .setPosition(width-220,70)
+      .setRange(0,R[3])
+      .setValue(R[choosePlanet])
+      .setSize(100, 10)
+      .setColorForeground(Col[choosePlanet])
+      .setColorBackground(backCol[choosePlanet])
+      .setColorValueLabel(Col[choosePlanet]);
 
     //=============planetsの質量
-    String massP="The mass of the "+planet[choosePlanet]+" is "+int(M[choosePlanet])+" ×10^23 kg";
-    textAlign(RIGHT);
-    textSize(fontSize);
-    fill(col[choosePlanet],50,75);
-    text(massP, width-10, 120);
-    fill(30);
-    rect(width*7/8-10, 140, width/8, 15);
-    x=map(M[choosePlanet]/M[3], 0, 1, 0, width/8);
-    fill(col[choosePlanet],50,75);
-    rect(width-10-x, 140, x, 15);
-
+    Slider planetmass;
+    planetmass=cp5.addSlider("The mass of the "+planet[choosePlanet])
+      .setPosition(width-220,140)
+      .setRange(0,M[3])
+      .setValue(M[choosePlanet])
+      .setSize(100, 10)
+      .setColorForeground(Col[choosePlanet])
+      .setColorBackground(backCol[choosePlanet])
+      .setColorValueLabel(Col[choosePlanet]);
+    
     //=============planetsの重力
-    String gravityP="The gravity of the "+planet[choosePlanet]+" is "+G[choosePlanet]+" m/s^2";
-    textAlign(RIGHT);
-    textSize(fontSize);
-    fill(col[choosePlanet],50,75);
-    text(gravityP, width-10, 210);
-    fill(30);
-    rect(width*7/8-10, 230, width/8, 15);
-    x=map(G[choosePlanet]/G[3], 0, 1, 0, width/8);
-    fill(col[choosePlanet],50,75);
-    rect(width-10-x, 230, x, 15);
+    Slider planetgravity;
+    planetgravity=cp5.addSlider("The gravity of the "+planet[choosePlanet])
+      .setPosition(width-220,210)
+      .setRange(0,G[3])
+      .setValue(G[choosePlanet])
+      .setSize(100, 10)
+      .setColorForeground(Col[choosePlanet])
+      .setColorBackground(backCol[choosePlanet])
+      .setColorValueLabel(Col[choosePlanet]);
 
     //============planetsの公転周期
-    String rcP="The revolution cycle of the "+planet[choosePlanet]+" is "+RC[choosePlanet]+" day";
-    textAlign(RIGHT);
-    textSize(fontSize);
-    fill(col[choosePlanet],50,75);
-    text(rcP, width-10, 300);
-    fill(30);
-    rect(width*7/8-10, 320, width/6, 15);
-    x=map(RC[choosePlanet]/RC[6], 0, 1, 0, width/8);
-    fill(col[choosePlanet],50,75);
-    rect(width-10-x, 320, x, 15);
+    Slider planetrc;
+    planetrc=cp5.addSlider("The revolution cycle of the "+planet[choosePlanet])
+      .setPosition(width-220,280)
+      .setRange(0,RC[6])
+      .setValue(RC[choosePlanet])
+      .setSize(100, 10)
+      .setColorForeground(Col[choosePlanet])
+      .setColorBackground(backCol[choosePlanet])
+      .setColorValueLabel(Col[choosePlanet]);
 
     //============planetsの自転周期
-    String rpP="The rotation period of the "+planet[choosePlanet]+" is "+RP[choosePlanet]+" day";
-    textAlign(RIGHT);
-    textSize(fontSize);
-    fill(col[choosePlanet],50,75);
-    text(rpP, width-10, 390);
-    fill(30);
-    rect(width*7/8-10, 410, width/8, 15);
-    x=map(RP[choosePlanet]/RP[1], 0, 1, 0, width/8);
-    fill(col[choosePlanet],50,75);
-    rect(width-10-x, 410, x, 15);
+    Slider planetrp;
+    planetrp=cp5.addSlider("The rotation period of the "+planet[choosePlanet])
+      .setPosition(width-220,350)
+      .setRange(0,RP[1])
+      .setValue(RP[choosePlanet])
+      .setSize(100, 10)
+      .setColorForeground(Col[choosePlanet])
+      .setColorBackground(backCol[choosePlanet])
+      .setColorValueLabel(Col[choosePlanet]);
 
     //============planetsの表面積
-    String saP="The surface area of the "+planet[choosePlanet]+" is "+SA[choosePlanet]+" ×10^8 km^2";
-    textAlign(RIGHT);
-    textSize(fontSize);
-    fill(col[choosePlanet],50,75);
-    text(saP, width-10, 480);
-    fill(30);
-    rect(width*7/8-10, 500, width/8, 15);
-    x=map(SA[choosePlanet]/SA[3], 0, 1, 0, width/8);
-    fill(col[choosePlanet],50,75);
-    rect(width-10-x, 500, x, 15);
+    Slider planetsa;
+    planetsa=cp5.addSlider("The surface area of the "+planet[choosePlanet])
+      .setPosition(width-220,420)
+      .setRange(0,SA[3])
+      .setValue(SA[choosePlanet])
+      .setSize(100, 10)
+      .setColorForeground(Col[choosePlanet])
+      .setColorBackground(backCol[choosePlanet])
+      .setColorValueLabel(Col[choosePlanet]);
   }
 
   //======================上のtextのspeedが何倍かを表示
@@ -333,37 +322,19 @@ class Clock {
   //===================下の部分のplanetsの実装
   void selectedPlanets() {
     noFill();
-    //blendMode(SCREEN);
-    //float colo;
-    //for (int i=0; i<location.length; i++) {
-    //  colo=col[i]-180;
-    //  if(colo<=0){
-    //     colo+=360; 
-    //  }
-    //  for (int j = 1; j < 50; ++j) {
-    //    strokeWeight(j);
-    //    stroke(
-    //      map(j, 1, 50, col[i]-180, col[i]), 
-    //      80, 
-    //      map(j, 1, 50, 15, 1), 
-    //      100
-    //      );
-    //    ellipse(location[i].x, location[i].y, dia[i], dia[i]);
-    //  }
-    //}
     for (int i=0; i<location.length; i++) {
-      fill(col[i],50,75);
+      fill(col[i], 50, 75);
       ellipse(location[i].x, location[i].y, dia, dia);
     }
   }
-  
+
   //====================下の部分のそれぞれがどのplanetsかを表示
-  void informPlanets(){
+  void informPlanets() {
     textAlign(CENTER);
     textSize(fontSize);
-    for(int i=0;i<location.length;i++){
-      fill(col[i],50,75);
-      text(planet[i],location[i].x,location[i].y+dia*2);
+    for (int i=0; i<location.length; i++) {
+      fill(col[i], 50, 75);
+      text(planet[i], location[i].x, location[i].y+dia*2);
     }
   }
 }

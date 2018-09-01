@@ -1,3 +1,5 @@
+import controlP5.*;
+ControlP5 cp5;
 Clock clock;
 
 float dir;//時計の半径
@@ -10,8 +12,9 @@ void setup() {
   fullScreen(P2D);
   smooth();
   background(21);
-  colorMode(HSB,360,100,100);
+  colorMode(HSB, 360, 100, 100);
   dir=width/20;
+  cp5=new ControlP5(this);
 }
 
 
@@ -29,10 +32,10 @@ void draw() {
 
   //下のplanetを出力
   clock.selectedPlanets();
-  
+
   //下のplanetsの部分を出す
   clock.borderPlanets();
-  
+
   //下の部分のplanetsのtextの部分
   clock.informPlanets();
 
@@ -50,20 +53,18 @@ void draw() {
 
   //上のtextの表示
   clock.drawSpeed();
-  
+
   //earthのbasic
   clock.basicEarth();
 
   //planetsのbasic
   clock.basicPlanets();
-  
-   //earthの針
+
+  //earthの針
   clock.drawEarth();
 
   //planetsの針
   clock.drawPlanet();
-
-
 }
 
 void keyPressed() {
