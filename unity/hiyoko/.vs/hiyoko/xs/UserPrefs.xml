@@ -1,0 +1,18 @@
+﻿<Properties StartupConfiguration="{AC7CBF8E-4652-4975-C347-56C35543CBBA}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/StartGame.cs">
+    <Files>
+      <File FileName="Assets/Script/playerControl.cs" Line="42" Column="49" />
+      <File FileName="Assets/Script/destroyObj.cs" Line="11" Column="36" />
+      <File FileName="Assets/Script/hiyokoGenerator.cs" Line="12" Column="47" />
+      <File FileName="Assets/Script/ButtonTest.cs" Line="19" Column="31" />
+      <File FileName="Assets/Script/StartGame.cs" Line="4" Column="12" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
