@@ -14,7 +14,8 @@ class Particle {
 
   Particle(PVector l) {
     acceleration=new PVector();
-    velocity=new PVector(random(-1, 1), random(-1, 1));
+    //初速度
+    velocity=new PVector(random(-5, 5), random(-5, 5));
     location=l.get();
     lifeSpan=225;
   }
