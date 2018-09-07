@@ -1,8 +1,3 @@
-import netP5.*;
-import oscP5.*;
-
-//OSCP5クラスのインスタンス
-OscP5 oscP5;
 //mouseの位置ベクトル
 PVector mouseLoc;
 //kinectで完治したかを検知
@@ -13,24 +8,37 @@ ArrayList<Fireworks> fireworks=new ArrayList<Fireworks>();
 
 int power=180;
 
+PFont hel_40;
+PFont hel_73;
+
 void setup () {
-  noCursor();
-  //OSC受信のとこ----------------------
-  oscP5=new OscP5(this, 12345);
   //mouseの位置の初期設定
   mouseLoc=new PVector(width/2, height/2);
   //mouseClickの初期化
   clicked=0;
-
+  noCursor();
   fullScreen(P3D);
   frameRate(55); 
   hint(DISABLE_DEPTH_TEST);
   blendMode(ADD);
   imageMode(CENTER);
+  hel_40=loadFont("Helvetica-40.vlw");
+  hel_73=loadFont("Helvetica-73.vlw");
 }
 
 void draw () {
   background(0, 0, 30);
+  textAlign(CENTER);
+  fill(21, 0, 255);
+  textFont(hel_40);
+  textSize(40);
+  text("happy birthday", width/2, height/2-100);
+  textFont(hel_73);
+  textSize(73);
+  text("Mr.yonekura", width/2, height/2+30);
+  if (frameCount%30==0) {
+    fireworks.add(new Fireworks(power));
+  }
   for (int i=0; i<fireworks.size(); i++) {
     Fireworks art=fireworks.get(i);
     if (art.centerPosition.y-art.radius>height) {
@@ -39,8 +47,8 @@ void draw () {
     art.display();
     art.update();
   }
-  
-  if(clicked==1){
+
+  if (clicked==1) {
     fireworks.add(new Fireworks(power));
   }
 }
@@ -49,23 +57,8 @@ void mousePressed() {
   fireworks.add(new Fireworks(power));
 }
 
-//OSCメッセージを受信した際に実行するイベント
-void oscEvent(OscMessage msg) {
-  //もしOSCメッセージが /mouse/position だったら
-  if (msg.checkAddrPattern("/mouse/position")==true) {
-    //最初の値をint方としてX座標に
-    mouseLoc.x = msg.get(0).intValue();
-    //次の値をint方としてY座標に
-    mouseLoc.y = msg.get(1).intValue();
-  }
-  if (msg.checkAddrPattern("/mouse/cliked")==true) {
-    //Bool値を読み込み
-    clicked = msg.get(0).intValue();
-    println("msg = " + clicked);
-    print("*");
-  }
+void message() {
 }
-
 
 //発光表現の元となるクラス
 PImage createLight(float rPower, float gPower, float bPower) {
@@ -110,7 +103,7 @@ class Fireworks {
   //花火の火の数
   int num=512;
   //花火の中心の初期位置
-  PVector centerPosition=new PVector(mouseX, mouseY, 0);
+  PVector centerPosition=new PVector(random(width), random(height), 0);
   //花火の中心の初期速度
   PVector velocity=new PVector(0, 0, 0);
 
