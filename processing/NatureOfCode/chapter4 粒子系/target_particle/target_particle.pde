@@ -50,7 +50,7 @@ void draw() {
        ps.remove(i); 
     }
   }
-  saveFrame("frames/#####.tif");
+  //saveFrame("frames/#####.tif");
 }
 
 void mousePressed() {

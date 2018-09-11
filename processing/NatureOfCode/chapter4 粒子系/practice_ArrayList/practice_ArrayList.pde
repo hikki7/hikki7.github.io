@@ -6,20 +6,20 @@ void setup() {
   //size(500,500);
   fullScreen();
   noCursor();
-  colorMode(HSB,360,100,100,100);
+  colorMode(HSB, 360, 100, 100, 100);
   blendMode(ADD);
   for (int i=0; i<total; i++) {
-    ps.add(new Particle(new PVector(width/2, 10),random(360)));
+    ps.add(new Particle(new PVector(width/2, 10), random(360)));
   }
 }
 
 
 void draw() {
   background(21);
-  if(frameCount%30==0){
+  if (frameCount%30==0) {
     for (int i=0; i<total; i++) {
-    ps.add(new Particle(new PVector(width/2, 10),random(360)));
-  }
+      ps.add(new Particle(new PVector(width/2, 10), random(360)));
+    }
   }
   for (int i=ps.size()-1; i>0; i--) {
     Particle p=ps.get(i);
@@ -28,11 +28,10 @@ void draw() {
       ps.remove(i);
     }
   }
-  
 }
 
 void mousePressed() {
   for (int i=0; i<total; i++) {
-    ps.add(new Particle(new PVector(width/2, 10),random(360)));
+    ps.add(new Particle(new PVector(width/2, 10), random(360)));
   }
 }
