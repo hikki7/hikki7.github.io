@@ -14,7 +14,7 @@ class Box {
     BodyDef bd=new BodyDef();
     //動的である
     bd.type=BodyType.DYNAMIC;
-    bd.position.set(box2d.coordPixelsToWorld(mouseX, mouseY));
+    bd.position.set(box2d.coordPixelsToWorld(x, y));
     //bodyの作成
     body=box2d.createBody(bd);
 
@@ -45,5 +45,10 @@ class Box {
     rectMode(CENTER);
     rect(0, 0, w, h);
     popMatrix();
+    
+    //落ちたら消す
+    //if(pos.y>height){
+    //   box2d.destroyBody(body); 
+    //}
   }
 }

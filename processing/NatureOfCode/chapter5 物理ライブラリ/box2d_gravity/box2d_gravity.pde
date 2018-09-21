@@ -7,7 +7,7 @@ ArrayList<Box>boxes;
 Box2DProcessing box2d;
 
 void setup() {
-  size(800, 800);
+  fullScreen();
   smooth();
   boxes=new ArrayList<Box>();
   box2d=new Box2DProcessing(this);
